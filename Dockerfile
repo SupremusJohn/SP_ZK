@@ -6,16 +6,13 @@ RUN apt-get update && \
   imagemagick \
   webp && \
   apt-get upgrade -y && \
-  npm i pm2 -g && \
   rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/SupremusJohn/EGO_BOT Supremus_MD
-WORKDIR /root/Supremus_MD
+RUN git clone https://github.com/SupremusJohn/EGO_BOT
+WORKDIR /root/EGO_BOT
 
 RUN npm install pm2 -g
 RUN npm install --legacy-peer-deps
-
-COPY . .
 
 EXPOSE 10000
 
