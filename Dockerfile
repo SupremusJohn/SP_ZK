@@ -13,7 +13,6 @@ RUN git clone https://github.com/SupremusJohn/EGO_BOT
 WORKDIR /root/Supremus_MD/
 
 
-COPY package.json .
 RUN npm install pm2 -g
 RUN npm install --legacy-peer-deps
 
