@@ -1,19 +1,27 @@
-FROM node:lts-buster
+FROM node:20-slim
 
-RUN apt-get update && \
-  apt-get install -y \
+# Installer les dépendances système
+RUN apt-get update && apt-get install -y \
   ffmpeg \
   imagemagick \
-  webp && \
+  webp \
+  git && \
   apt-get upgrade -y && \
   rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/SupremusJohn/EGO_BOT
-WORKDIR /root/EGO_BOT
+# Créer le dossier de travail (facultatif, utile pour clarté)
+WORKDIR /root
 
-RUN npm install pm2 -g
+# Cloner le vrai bot
+RUN git clone https://github.com/SupremusJohn/EGO_BOT zokou
+
+WORKDIR /root/zokou
+
+# Installer les dépendances du vrai projet
 RUN npm install --legacy-peer-deps
 
-EXPOSE 10000
+# Exposer le port utilisé par ton bot
+EXPOSE 8000
 
+# Lancer le bot (adaptable si tu utilises PM2 ou autre)
 CMD ["node", "index.js"]
